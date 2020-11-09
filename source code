@@ -1,0 +1,173 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class info{
+protected:
+	double Ventilation;
+	double PH;
+	double water;
+	double Organic_matter;
+	double Weight_of_the_soil;
+public:
+	virtual void display() = 0; //function overriding // Regular polymorphism class
+	void setV(double h){ // Abstraction
+		Ventilation = h;
+	}
+	void setPH(double h){
+		PH = h;
+	}
+	void setW(double h){
+		water = h;
+	}
+	void setWS(double h){
+		Weight_of_the_soil = h;
+	}
+	void setOC(double h){
+		Organic_matter = h;
+	}
+};
+class ventilation :public info{ // inheritance
+public:
+	void display(){ //function overriding
+		if (((Ventilation / Weight_of_the_soil) * 100) <= 25)
+		{
+			cout << " The rate of ventilation you have in the breeding " << "is notsufficient. You must add gypsum or perlite\n";
+		}
+		else { cout << " This percentage is appropriate\n"; }
+	}
+	double getV(){ return ((Ventilation / Weight_of_the_soil) * 100); }
+};
+class ph :public info{ // inheritance
+public:
+	void display(){ //function overriding
+		if (PH <= 6.5)
+		{
+			cout << "Lime material can be added to raise the ratio\n";
+		}
+		else if (PH >= 7.5)
+		{
+			cout << "Sulfur can be added to reduce the ratio\n";
+		}
+		else { cout << "This percentage is appropriate\n"; }
+	}
+	double getPH(){ return PH; }
+};
+class Water :public info{ // inheritance
+public:
+	void display(){ //function overriding
+		if (((water / Weight_of_the_soil) * 100) >= 25 && ((water /
+			Weight_of_the_soil) * 100) <= 40)
+		{
+			cout << " This percentage is appropriate\n";
+		}
+		else
+		{
+			cout << "This amount of water is not suitable\n";
+		}
+	}
+	double getW(){ return ((water / Weight_of_the_soil) * 100); }
+};
+class Organic :public info{ //inheritance
+public:
+	void display(){ //function overriding
+		if (((Organic_matter / Weight_of_the_soil) * 100) <= 5)
+		{
+			cout << "An appropriate proportion"
+				<< "of organic matter must be added to the soil to feed crops\n";
+		}
+		else
+		{
+			cout << " This percentage is appropriate\n";
+		}
+	}
+	double getOC(){ return ((Organic_matter / Weight_of_the_soil) * 100); }
+};
+void print(double ve) //function overloading
+{
+	cout << "Ventilation:";
+}
+void print() //function overloading
+{
+	cout << "PH:";
+}
+void print(string WA) //function overloading
+{
+	cout << "Water:";
+}
+void print(bool O_C) //function overloading
+{
+	cout << "organic matter:";
+}void main(){
+	ventilation objV;
+	ph objPH;
+	Water objW;
+	Organic objOC;
+	cout << "\tThe program is to find out the suitability of the soil forcultivation"
+		
+		<< "and provide the solutions available for its treatment.\n";
+	cout << "\nenter the Weight of the soil\n";
+	double WS;
+	cin >> WS;
+	objV.setWS(WS);
+	objOC.setWS(WS);
+	objW.setWS(WS);
+	cout << "enter the Ventilation ratio in the soil\n";
+	double V;
+	cin >> V;
+	objV.setV(V);
+	cout << " enter the PH of the soil\n";
+	double p_h;
+	cin >> p_h;
+	objPH.setPH(p_h);
+	cout << " enter the The percentage of water in the soil\n";
+	double W;
+	cin >> W;
+	objW.setW(W);
+	string w = "water";
+	cout << " enter the The ratio of organic matter in the soil\n";
+	double OC;
+	cin >> OC; objOC.setOC(OC);
+	bool oc = true;
+	//Display the all information:
+	cout << "\t\t\tHere, your soil information:\n";
+	cout << "\t\t------------------------------------------\n";
+	cout << "(Characteristic:) (Percentage entered:) (As for the soilweight:) (The solution : If there is a problem)\n\n";
+	
+		   ////ventilation
+		   print(V);
+	cout << " ";
+	cout << V;
+	cout << " ";
+	cout << objV.getV(); //encapsulation
+	cout << " ";
+	objV.display(); cout << endl;
+	/////PH
+	print();
+	cout << " ";
+	cout << p_h;
+	cout << " ";
+	cout << objPH.getPH(); //encapsulation
+	cout << " ";
+	objPH.display();
+	cout << endl;
+	/////Water
+	print(w);
+	cout << " ";
+	cout << W;
+	cout << " ";
+	cout << objW.getW(); //encapsulation
+	cout << " ";
+	objW.display();
+	cout << endl;
+	/////organic matter
+	print(oc);
+	cout << " ";
+	cout << OC;
+	cout << " ";
+	cout << objOC.getOC(); //encapsulation
+	cout << " ";
+	objOC.display();
+	cout << endl;
+	///
+	system("pause");
+}
